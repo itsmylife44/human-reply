@@ -47,7 +47,7 @@ Before drafting or posting any text another person will read (comment, PR or iss
   "hooks": {
     "PreToolUse": [
       { "matcher": "Bash", "hooks": [{ "type": "command", "command": "python3 ~/.agents/skills/human-reply/hooks/gate.py" }] },
-      { "matcher": "mcp__.*(comment|reply|respond|review|send|post|message).*",
+      { "matcher": "mcp__.*",
         "hooks": [{ "type": "command", "command": "python3 ~/.agents/skills/human-reply/hooks/gate.py" }] }
     ]
   }

@@ -29,28 +29,41 @@ REASON = (
 
 def is_posting(event):
     tool = event.get("tool_name", "")
-    if tool in ("Bash", "shell", "exec_command", "local_shell"):
+    if tool == "Bash":  # Claude Code and Codex both report shell commands as Bash
         cmd = event.get("tool_input", {}).get("command", "")
         return bool(POSTING_COMMAND.search(cmd if isinstance(cmd, str) else " ".join(cmd)))
     words = set(tool.split("__")[-1].lower().split("_"))
     return bool(POSTING_TOOL.search(tool)) and not words & READ_WORDS
 
 
-def first_time(event):
+def first_time(event, marker_dir):
     # Claude Code keeps a loaded skill for the whole session; Codex drops skills between turns,
     # so key on turn_id when the harness sends one.
     key = re.sub(r"\W", "_", f"{event.get('session_id', 'none')}-{event.get('turn_id', '')}")
-    marker = os.path.join(tempfile.gettempdir(), "human-reply-gate", key)
+    marker = os.path.join(marker_dir, key)
     if os.path.exists(marker):
         return False
-    os.makedirs(os.path.dirname(marker), exist_ok=True)
+    os.makedirs(marker_dir, exist_ok=True)
     open(marker, "w").close()
     return True
 
 
+def decide(event, marker_dir):
+    """The hook output for this event: a deny on the first post of a session or turn, else None."""
+    if is_posting(event) and first_time(event, marker_dir):
+        return {"hookSpecificOutput": {
+            "hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": REASON}}
+    return None
+
+
 def selftest():
-    def bash(c):
-        return {"tool_name": "Bash", "tool_input": {"command": c}}
+    def bash(c, turn=""):
+        return {"tool_name": "Bash", "tool_input": {"command": c}, "session_id": "s1", "turn_id": turn}
+    with tempfile.TemporaryDirectory() as d:
+        assert decide(bash("gh pr view 12 --comments"), d) is None  # reads never consume the marker
+        assert decide(bash('gh pr comment 12 --body "Fixed"'), d)
+        assert decide(bash('gh pr comment 12 --body "Fixed"'), d) is None  # the retry goes through
+        assert decide(bash('gh pr comment 12 --body "Fixed"', turn="t2"), d)  # Codex: new turn, new block
     assert is_posting(bash('gh pr comment 12 --body "Fixed"'))
     assert is_posting(bash("gh issue create --title x --body y"))
     assert is_posting(bash("gh api repos/a/b/pulls/3/comments -f body=hi"))
@@ -71,7 +84,7 @@ if __name__ == "__main__":
         event = json.load(sys.stdin)
     except ValueError:
         sys.exit(0)  # never break the harness on odd input
-    if is_posting(event) and first_time(event):
-        print(json.dumps({"hookSpecificOutput": {
-            "hookEventName": "PreToolUse", "permissionDecision": "deny", "permissionDecisionReason": REASON}}))
+    out = decide(event, os.path.join(tempfile.gettempdir(), "human-reply-gate"))
+    if out:
+        print(json.dumps(out))
     sys.exit(0)

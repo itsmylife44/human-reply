@@ -6,7 +6,7 @@
         "hooks": [{ "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.py\"" }]
       },
       {
-        "matcher": "mcp__.*(comment|reply|respond|review|send|post|message).*",
+        "matcher": "mcp__.*",
         "hooks": [{ "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.py\"" }]
       }
     ]
