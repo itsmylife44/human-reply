@@ -7,7 +7,8 @@ An agent skill that makes Claude, Codex and other models write like a person in 
 Claude Code, best option: install it as a plugin. You get the skill plus a hook that makes the agent load it before it posts.
 
 ```
-/plugin install human-reply --marketplace itsmylife44/human-reply
+/plugin marketplace add itsmylife44/human-reply
+/plugin install human-reply@human-reply
 ```
 
 Any other harness, with the skills CLI, which picks the right folder for Claude Code, Codex, Cursor, Gemini CLI, OpenCode and the other harnesses that read `SKILL.md`:
