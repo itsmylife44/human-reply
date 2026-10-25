@@ -74,4 +74,4 @@ The full list of tells the agent rewrites by hand is in `references/tells.md`, a
 
 ## License
 
-MIT, see `LICENSE`. `references/tells.md` keeps the MIT notice of blader/humanizer.
+MIT, see `LICENSE`. `references/tells.md` is adapted from blader/humanizer, whose MIT notice is in `THIRD_PARTY_NOTICES`.
