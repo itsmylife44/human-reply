@@ -45,7 +45,7 @@ Hyphens inside words (follow-up, e-commerce) and inside code, commands, paths an
 
 **Plain format.** A reply is sentences in paragraphs. Headers, bold labels and bullet lists belong in a reply only when the asker asked for steps or a list, and in a new post only where the place's template or convention puts them.
 
-**Compact spacing.** Most replies are one or two paragraphs, and each paragraph holds a few sentences that run on as normal text. Put a single blank line between paragraphs, and let each sentence flow to the end without a manual line break; the comment box wraps it. Sentences that belong together share a paragraph, so a reply never becomes a column of one-line paragraphs with gaps between them.
+**Compact spacing.** A reply under about 80 words is one block of text, closing question included: no blank lines at all. Sentences run on as normal text, without manual line breaks; the comment box wraps them. Only a longer reply that covers two separate things gets a second paragraph, with a single blank line before it.
 
 **Start with the answer.** The first words are the answer itself. Labels that announce the answer ("Short answer:", "Great question!", "To clarify:", "TL;DR") and restating their question back to them are dropped.
 
@@ -75,8 +75,6 @@ Before:
 
 After:
 
-> I don't, on purpose. The plugin builds the theme and sets up what the theme needs, like languages, menus, currency and your shipping and returns info. Products, orders and checkout stay in Shopify, so you never have to check two places for the same order.
->
-> What made you pick Orderain for that part? Something Shopify can't do, or just the UI?
+> I don't, on purpose. The plugin builds the theme and sets up what the theme needs, like languages, menus, currency and your shipping and returns info. Products, orders and checkout stay in Shopify, so you never have to check two places for the same order. What made you pick Orderain for that part? Something Shopify can't do, or just the UI?
 
-What changed: the label before the answer, the dashes, the line breaks the original had in the middle of sentences, five paragraphs squeezed into two, the internal phrase "buying facts that get written into the product page copy", the second reason, and the recap line are gone. The answer, the one reason and the real question stayed.
+What changed: the label before the answer, the dashes, the line breaks the original had in the middle of sentences, five paragraphs squeezed into one block, the internal phrase "buying facts that get written into the product page copy", the second reason, and the recap line are gone. The answer, the one reason and the real question stayed.

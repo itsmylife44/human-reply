@@ -128,10 +128,13 @@ def check(text, lang="en", kind="reply"):
     if re.search(r"\n[ \t]*\n[ \t]*\n", text):
         issues.append("more than one blank line between paragraphs: use a single one")
     paras = [p for p in re.split(r"\n[ \t]*\n", text.strip()) if p.strip()]
-    # ponytail: word-count heuristic, a reply with 3+ paragraphs averaging under 15 words is fragmented
-    fragmented = len(paras) >= 3 and sum(len(p.split()) for p in paras) / len(paras) < 15
-    if kind == "reply" and lang not in NO_SPACES and fragmented:
-        issues.append(f"{len(paras)} short paragraphs: merge sentences that belong together")
+    # ponytail: word-count heuristics, under 80 words is one block, 3+ paragraphs under 15 words each is fragmented
+    words = sum(len(p.split()) for p in paras)
+    if kind == "reply" and lang not in NO_SPACES and len(paras) > 1:
+        if words < 80:
+            issues.append(f"short reply ({words} words) split into {len(paras)} paragraphs: make it one block")
+        elif len(paras) >= 3 and words / len(paras) < 15:
+            issues.append(f"{len(paras)} short paragraphs: merge sentences that belong together")
     return issues
 
 
@@ -161,6 +164,9 @@ def selftest():
     assert check("希望这对你有帮助。", "zh")
     assert check("そうです — たぶん。", "ja")
     assert not check("そうです。いいですね。", "ja")
+    # a short reply is one block, closing question included
+    assert check("Fair test, and I like it. I can check it now.\n\nWould you count a repeat rating too?")
+    assert not check("Fair test, and I like it. I can check it now. Would you count a repeat rating too?")
     # new posts: template headers and commit wrapping are fine, dashes still are not
     assert not check("## Summary\n\nCheckout no longer double-charges on retry.\n\n<!-- template -- note -->", kind="post")
     assert check("## Summary\n\nCheckout no longer double-charges on retry.")
