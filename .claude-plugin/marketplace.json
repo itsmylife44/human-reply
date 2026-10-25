@@ -1,0 +1,12 @@
+{
+  "name": "human-reply",
+  "owner": { "name": "itsmylife44" },
+  "description": "Make coding agents write replies, comments, PR descriptions, issues and commits like a person.",
+  "plugins": [
+    {
+      "name": "human-reply",
+      "source": "./",
+      "description": "Replies, comments, PR descriptions, issues and commits that sound like a person wrote them, in any language."
+    }
+  ]
+}

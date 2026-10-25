@@ -1,0 +1,8 @@
+{
+  "name": "human-reply",
+  "version": "0.1.0",
+  "description": "Replies, comments, PR descriptions, issues and commits that sound like a person wrote them, in any language. Includes a hook that makes the agent load the skill before it posts.",
+  "author": { "name": "itsmylife44" },
+  "repository": "https://github.com/itsmylife44/human-reply",
+  "license": "MIT"
+}
