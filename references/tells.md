@@ -1,6 +1,6 @@
 # Tells to cut from a reply
 
-Read this during the check step. Each item is a habit models have and people mostly don't. One weak tell alone proves little; several together make a reply read as generated. Fix by rewriting the sentence, keeping every fact.
+Read this during the check step, after `scripts/check.py` runs clean. The checker already flags dashes, mid-sentence line breaks, split short replies, mixed quote styles, labels before the answer, chatbot wrappers, recap lines, "not X but Y" contrasts, stock AI words and the stock phrases of each language it knows. This list is what a regex can't see. Each item is a habit models have and people mostly don't. One weak tell alone proves little; several together make a reply read as generated. Fix by rewriting the sentence, keeping every fact.
 
 Adapted for replies from [blader/humanizer](https://github.com/blader/humanizer) (MIT), which is based on Wikipedia's [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
 
@@ -12,10 +12,10 @@ The strongest tell in a reply. The asker already has the context, so restating t
 
 ## Staging instead of stating
 
-- **Run-ups:** "Here's the thing", "The thing is", "Honestly?", "Look,", "Let's break this down", "Quick note". Cut the run-up and make the point. "Honestly" inside a casual sentence is fine; the tell is the standalone opener.
-- **Arguing with no one:** "To be clear", "I'm not saying", "Don't get me wrong", "You might think... but". If nobody in the thread said it, drop the defense.
-- **One-line closers:** "That's the real win.", "Let that sink in.", "That distinction matters.", a row of fragments ("No setup. No config."). Cut a closer that repeats; keep a short line only when it adds a new fact.
-- **Sayings that sound deep:** "at its core", "what really matters", "the real question is", "X is the Y of Z". Replace with the plain claim.
+- **Run-ups:** a standalone "Look," or any opener that delays the point. Cut the run-up and make the point.
+- **Arguing with no one:** "You might think... but", or any defense against something nobody in the thread said. Drop the defense.
+- **One-line closers:** a row of fragments ("No setup. No config."), or a short last line that repeats what came before. Keep a short line only when it adds a new fact.
+- **Sayings that sound deep:** "the real question is", "X is the Y of Z". Replace with the plain claim.
 
 ## Rhythm by rule
 
@@ -25,26 +25,22 @@ The strongest tell in a reply. The asker already has the context, so restating t
 
 ## Inflated words
 
-- **Stock AI words:** additionally, align with, crucial, delve, enhance, garner, highlight (verb), interplay, intricate, key (adjective), leverage, meticulous, pivotal, robust (figurative), seamless, showcase, testament, underscore (verb), vibrant.
-- **Long verbs for simple ones:** "serves as", "stands as", "functions as", "boasts", "features". Use is, are, has.
+- **Stock AI words the checker skips:** key as an adjective ("the key point") and highlight as a verb ("highlights the need"). The nouns ("API key", "syntax highlight") are fine.
+- **Long verbs for simple ones:** "features" as a verb ("the app features..."). Use has.
 - **-ing riders:** "..., ensuring a smooth experience", "..., highlighting the need for". Cut the rider or state the fact it hints at.
-- **Sales tone:** groundbreaking, stunning, game-changer, "a step in the right direction". Say what the thing does.
+- **Sales tone:** groundbreaking, stunning, "a step in the right direction". Say what the thing does.
 
 ## Chat leftovers
 
-- **Chatbot wrapper:** "Great question!", "You're absolutely right", "Certainly!", "Want me to...?", "Would you like...", "Hope this helps". Remove the wrapper, keep the content.
 - **Knowledge disclaimers:** "as of my last update", "based on available information". Say what you don't know plainly, or cut it.
-- **Mixed quote styles** in one reply (straight, curly and « » together). Curly quotes alone are normal in most languages and weak even in English.
 
 ## Language-specific tells
 
 Mostly small in a short reply, but worth a look. Sources are the localized humanizer skills and the Wikipedia AI-signs pages in each language.
 
-- **Italian:** calques like "gioca un ruolo cruciale", "Non è X, è Y", a subject pronoun in every sentence where Italian would drop it, "Spero di esserti stato utile".
-- **French:** calques like "faire du sens", "adresser un problème", "impacter"; crucial, également, notamment everywhere; "N'hésitez pas à".
-- **Spanish and Portuguese:** "¡Por supuesto!", "Com certeza!" openers; "espero que esto te ayude", "espero ter ajudado" closers.
-- **German:** "Im Kern", "In Wirklichkeit", "Ich hoffe, das hilft".
-- **Russian:** bureaucratic nouns (осуществление, обеспечение, в рамках), "данный", "является" over and over, "Стоит отметить, что".
-- **Chinese:** 进行 + verb, stacked 的, 随着…的发展 openers, empty closers like 总而言之.
+- **Italian:** "Non è X, è Y", a subject pronoun in every sentence where Italian would drop it.
+- **French:** calques like "faire du sens", "adresser un problème", "impacter"; crucial, également, notamment everywhere.
+- **Russian:** bureaucratic nouns (осуществление, обеспечение, в рамках), "данный", "является" over and over.
+- **Chinese:** 进行 + verb, stacked 的, 随着…的发展 openers.
 - **Japanese:** the same keigo pace in every sentence, a subject stated each time, 〜することができます.
 - **Korean:** one politeness level (합니다) with no variation, or levels mixed inside a paragraph; commas in most sentences; translationese (에 대해, 통해, 되어진다).

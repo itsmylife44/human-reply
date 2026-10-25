@@ -29,8 +29,10 @@ ENGLISH = [
     (r"\bnot (just|only|merely)\b[^.?!]*\bbut\b", "'not just X but Y' contrast: state it directly"),
     (r"\bit'?s not\b[^.?!]*,\s*it'?s\b", "'it's not X, it's Y' contrast: state it directly"),
     (r"^\s*(so|in summary|to sum up|overall),?\s", "recap line: cut it"),
+    # "key" and "highlight" stay in tells.md: a regex can't tell "key point" from "API key"
     (r"\b(additionally|delve|leverage|seamless(ly)?|robust|holistic|game[- ]changer|crucial|pivotal"
-     r"|showcase|testament|underscores?|meticulous(ly)?|vibrant|garner|interplay|intricate)\b",
+     r"|showcase|testament|underscores?|meticulous(ly)?|vibrant|garner|interplay|intricate"
+     r"|enhanc(e[sd]?|ing)|align(s|ed)? with)\b",
      "stock AI word: use a plainer one"),
     (r"\b(serves as|stands as|functions as|boasts)\b", "long verb: use is, are or has"),
 ]
@@ -145,6 +147,8 @@ def selftest():
     assert check("Hope this helps!")
     assert check("It's not a bug, it's a feature.")
     assert check("So the split is: A and B.")
+    assert check("This enhances the flow.")
+    assert not check("Rotate the API key.")
     assert check("The plugin owns the theme and the\nstore settings.")
     assert check("First point.\n\n\nSecond point.")
     assert check("Yes.\n\nIt works.\n\nTry it.")

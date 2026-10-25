@@ -64,7 +64,7 @@ Lots of skills installed? Claude Code drops the descriptions of the least-used o
 python3 scripts/check.py --lang it draft.txt
 ```
 
-`--lang` is the language (default `en`). `--kind` is `reply` (default), `post` for PR descriptions, issues and posts (template headers allowed) or `commit` (72-column wrap allowed). The rules in `SKILL.md` work in any language. The checker has phrase packs for en, it, fr, es, pt, de, ru, zh, ja, ko, and any other code still gets the layout and quote checks. Adding a language is one line in `WRAPPERS`.
+`--lang` is the language (default `en`). `--kind` is `reply` (default), `post` for PR descriptions, issues and posts (template headers allowed) or `commit` (72-column wrap allowed). The rules in `SKILL.md` work in any language. The checker has phrase packs for en, it, fr, es, pt, de, ru, zh, ja, ko, and any other code still gets the layout and quote checks. Adding a language is one line in `WRAPPERS`, plus an entry in `STRICT_DASH` or `NO_SPACES` if its punctuation or spacing needs one.
 
 Dashes follow each language's own rules: banned in English, Japanese and Korean, at most one elsewhere, and the grammatical Russian dash is allowed.
 
