@@ -55,7 +55,7 @@ Hyphens inside words (follow-up, e-commerce) and inside code, commands, paths an
 
 **Stay honest.** Keep every fact and every real hedge. Humanizing changes the voice, never the claims. If you don't know, say "not sure" and what you'd check.
 
-**Hand it over clean.** When the user will paste the text themselves, put it on their clipboard if a clipboard command exists (`pbcopy` on macOS, `wl-copy` or `xclip -selection clipboard` on Linux, `clip.exe` on Windows or WSL) and say it's there. Then show it once inside a fenced ```` ```text ```` block, with your notes outside the block. A `>` quote looks tidy but terminals draw a bar on every quoted line and break long lines, and the user copies both along with the reply.
+**Hand it over clean.** When the user will paste the text themselves, the clipboard is the only clean path, because a terminal indents what it displays and breaks long lines, and selecting text there copies the indent and the breaks too. Put the text on the clipboard (`pbcopy` on macOS, `wl-copy` or `xclip -selection clipboard` on Linux, `clip.exe` on Windows or WSL) and tell the user in one line to paste it with Cmd+V or Ctrl+V instead of selecting it from the terminal. With no clipboard command, write it to a file such as `reply.txt` and give the path. Show the text once in a fenced ```` ```text ```` block so they can read it, with your notes outside the block, and never as a `>` quote.
 
 ## Example
 
