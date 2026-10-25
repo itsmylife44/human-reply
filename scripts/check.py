@@ -110,6 +110,8 @@ def breaks_mid_sentence(line, nxt):
 
 
 def check(text, lang="en", kind="reply"):
+    # paragraph checks read the text as written, except blank lines inside a fenced block
+    layout = re.sub(r"```.*?```", lambda m: re.sub(r"(?m)^$", ">", m.group()), text, flags=re.S)
     # blank out code and URLs (dashes and quotes there are fine) but keep newlines so line numbers hold
     text = CODE.sub(lambda m: re.sub(r"[^\n]", " ", m.group()), text)
     lines = text.splitlines()
@@ -127,9 +129,9 @@ def check(text, lang="en", kind="reply"):
     # ponytail: nested quotes in another style (French « “ ” ») trip this, rare in a short reply
     if len(quote_styles(text)) > 1:
         issues.append("mixed quote styles: pick the language's own and use it throughout")
-    if re.search(r"\n[ \t]*\n[ \t]*\n", text):
+    if re.search(r"\n[ \t]*\n[ \t]*\n", layout):
         issues.append("more than one blank line between paragraphs: use a single one")
-    paras = [p for p in re.split(r"\n[ \t]*\n", text.strip()) if p.strip()]
+    paras = [p for p in re.split(r"\n[ \t]*\n", layout.strip()) if p.strip()]
     # ponytail: word-count heuristics, under 80 words is one block, 3+ paragraphs under 15 words each is fragmented
     words = sum(len(p.split()) for p in paras)
     if kind == "reply" and lang not in NO_SPACES and len(paras) > 1:
@@ -174,6 +176,8 @@ def selftest():
     # new posts: template headers and commit wrapping are fine, dashes still are not
     assert not check("## Summary\n\nCheckout no longer double-charges on retry.\n\n<!-- template -- note -->", kind="post")
     assert check("## Summary\n\nCheckout no longer double-charges on retry.")
+    assert not check("Install it:\n\n```\nnpm i -- x\n\nnpm test\n```\n\nThen open the app.", kind="post")
+    assert not check("The repo:\n\nhttps://github.com/a/b\n\nTry it.", kind="post")
     assert not check("Fix double charge on retry\n\nThe retry handler reused the old payment\nintent, so Stripe charged twice.", kind="commit")
     assert check("Fix double charge \u2014 finally", kind="commit")
     print("selftest ok")
